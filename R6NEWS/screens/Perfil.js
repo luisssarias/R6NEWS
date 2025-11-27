@@ -7,7 +7,7 @@ export default class Perfil extends Component {
             <View style={styles.container}>
                 
                 <Image
-                    source={{ uri: 'https://i.imgur.com/XSYQw2Z.png' }}
+                    source={{ uri: 'https://external-preview.redd.it/EvEzuUfte5MFPLKMHSWQzgVJFTC1UBx1HOXxZtL8yww.png?width=640&crop=smart&auto=webp&s=d24f16e94428a29e67c5c93496742c12c6a70bc1' }}
                     style={styles.avatar}
                 />
 
