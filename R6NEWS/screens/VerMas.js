@@ -11,7 +11,6 @@ export default function VerMasScreen() {
 
       <View style={styles.sectionHeader}>
         <Text style={styles.sectionTitle}>Noticias recientes</Text>
-        <Text style={styles.notif}>🔔 Notificaciones</Text>
       </View>
 
       <View style={styles.card}>

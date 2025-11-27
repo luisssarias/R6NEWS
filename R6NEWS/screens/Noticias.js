@@ -1,6 +1,8 @@
 // screens/Noticias.js
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, StatusBar } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 const noticias = [
   {
@@ -33,6 +35,7 @@ const noticias = [
 ];
 
 const Noticias = () => {
+  const navigation = useNavigation();
   const renderItem = ({ item }) => {
     if (item.tipoHeader) {
       return (
@@ -41,7 +44,6 @@ const Noticias = () => {
             <Text style={styles.brand}>R6News</Text>
             <Text style={styles.headerSubtitle}>Noticias recientes</Text>
           </View>
-          <Text style={styles.notificationText}>Notificaciones 🔔</Text>
         </View>
       );
     }
