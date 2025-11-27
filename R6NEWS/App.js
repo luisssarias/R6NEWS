@@ -15,6 +15,8 @@ import EstadisticasP from './screens/EstadisticasP';
 import Perfil from './screens/Perfil';
 import CambiarContrasena from './screens/CambiarContrasena';
 import OlvidarContrasena from './screens/OlvidarContrasena';
+import VerMasScreen from './screens/VerMas';
+import EditarPerfilScreen from './screens/EditarPerfil';
 
 const Stack = createNativeStackNavigator();
 const Tabs = createBottomTabNavigator();
@@ -67,6 +69,8 @@ export default function App() {
         <Stack.Screen name="RegistroSesion" component={RegistroSesion} />
         <Stack.Screen name="OlvidarContrasena" component={OlvidarContrasena} />
         <Stack.Screen name="CambiarContraseña" component={CambiarContrasena} />
+        <Stack.Screen name="EditarPerfil" component={EditarPerfilScreen} />
+        <Stack.Screen name="VerMas" component={VerMasScreen} />
 
         {/* PANTALLAS CON TABS */}
         <Stack.Screen name="TabsMenu" component={TabsMenu} />

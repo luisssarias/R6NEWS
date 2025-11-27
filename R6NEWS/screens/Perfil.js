@@ -25,14 +25,16 @@ export default function Perfil() {
         <View style={styles.container}>
             
             <Image
-                source={{ uri: 'https://i.imgur.com/XSYQw2Z.png' }}
+                source={require("../assets/user.jpg")}
                 style={styles.avatar}
             />
 
             <Text style={styles.username}>Username</Text>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("EditarPerfil")}>
                 <Text style={styles.buttonText}>Editar perfil</Text>
+
+                
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button}>

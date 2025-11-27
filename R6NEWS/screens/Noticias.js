@@ -47,19 +47,21 @@ const Noticias = () => {
     }
 
     return (
-      <View style={styles.newsCard}>
-        <Image source={{ uri: item.imagen }} style={styles.newsImage} />
-        <View style={styles.newsContent}>
-          <Text style={styles.newsDate}>{item.fecha}</Text>
-          <Text style={styles.newsTitle}>{item.titulo}</Text>
-          <Text style={styles.newsDescription}>{item.descripcion}</Text>
-          <TouchableOpacity>
-            <Text style={styles.newsMore}>Ver más</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
+  <View style={styles.newsCard}>
+    <Image source={{ uri: item.imagen }} style={styles.newsImage} />
+
+    <View style={styles.newsContent}>
+      <Text style={styles.newsDate}>{item.fecha}</Text>
+      <Text style={styles.newsTitle}>{item.titulo}</Text>
+      <Text style={styles.newsDescription}>{item.descripcion}</Text>
+
+      <TouchableOpacity onPress={() => navigation.navigate("VerMas", { item })}>
+        <Text style={styles.newsMore}>Ver más</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+);
+};
 
   return (
     <View style={styles.container}>
