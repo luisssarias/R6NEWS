@@ -65,7 +65,7 @@ export default function App() {
         <Stack.Screen name="Bienvenida" component={Bienvenida} />
         <Stack.Screen name="IniciarSesion" component={IniciarSesion} />
         <Stack.Screen name="RegistroSesion" component={RegistroSesion} />
-        <Stack.Screen name="OlvidarContraseña" component={OlvidarContrasena} />
+        <Stack.Screen name="OlvidarContrasena" component={OlvidarContrasena} />
         <Stack.Screen name="CambiarContraseña" component={CambiarContrasena} />
 
         {/* PANTALLAS CON TABS */}

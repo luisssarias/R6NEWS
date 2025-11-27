@@ -30,7 +30,11 @@ export default function IniciarSesionScreen() {
         <Text style={styles.btnText}>Iniciar sesión</Text>
       </TouchableOpacity>
 
-      <Text style={styles.bottomText}>¿Olvidaste tu contraseña?</Text>
+
+      <TouchableOpacity 
+        onPress={() => navigation.replace("OlvidarContrasena")}>
+        <Text style={styles.bottomText}>¿Olvidaste tu contraseña?</Text>
+      </TouchableOpacity>
     </View>
   );
 }

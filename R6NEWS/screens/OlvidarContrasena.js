@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
-export default class OlvidarContrasena extends Component {
-    render() {
+export default function OlvidarContrasena () {
         return (
             <View style={styles.container}>
 
@@ -34,7 +33,6 @@ export default class OlvidarContrasena extends Component {
 
             </View>
         );
-    }
 }
 
 const styles = StyleSheet.create({
