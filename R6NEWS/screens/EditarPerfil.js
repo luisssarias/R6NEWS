@@ -1,9 +1,16 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Alert, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function EditarPerfilScreen() {
   const navigation = useNavigation();
+
+  // Estados para datos del usuario
+  const [nombre, setNombre] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // ver contraseña
 
   const handleSave = () => {
     Alert.alert(
@@ -23,42 +30,81 @@ export default function EditarPerfilScreen() {
           source={require("../assets/user.jpg")}
           style={styles.avatar}
         />
-        <TouchableOpacity style={styles.cameraBtn} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.cameraBtn}>
           <Text style={styles.cameraIcon}>📷</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Nombre */}
-      <TouchableOpacity style={styles.row} activeOpacity={0.8}>
-        <Text style={styles.rowText}>Nombre</Text>
-        <Text style={styles.rowIcon}>✏️</Text>
-      </TouchableOpacity>
+      {/* INPUT NOMBRE */}
+      <View style={styles.inputBox}>
+        <View style={styles.rowHeader}>
+          <Text style={styles.label}>Nombre</Text>
+          <Text style={styles.editIcon}>✏️</Text>
+        </View>
 
-      {/* Correo */}
-      <TouchableOpacity style={styles.row} activeOpacity={0.8}>
-        <Text style={styles.rowText}>Correo</Text>
-        <Text style={styles.rowIcon}>✏️</Text>
-      </TouchableOpacity>
+        <TextInput
+          style={styles.input}
+          placeholder="Escribe tu nombre"
+          placeholderTextColor="#777"
+          value={nombre}
+          onChangeText={setNombre}
+        />
+      </View>
 
-      {/* Cambiar contraseña */}
-      <TouchableOpacity
-        style={styles.row}
-        activeOpacity={0.8}
-        onPress={() => navigation.navigate("CambiarContrasena")}
-      >
-        <Text style={styles.rowText}>Cambiar contraseña</Text>
-        <Text style={styles.rowIcon}>✏️</Text>
-      </TouchableOpacity>
+      {/* INPUT CORREO */}
+      <View style={styles.inputBox}>
+        <View style={styles.rowHeader}>
+          <Text style={styles.label}>Correo</Text>
+          <Text style={styles.editIcon}>✏️</Text>
+        </View>
+
+        <TextInput
+          style={styles.input}
+          placeholder="correo@ejemplo.com"
+          placeholderTextColor="#777"
+          keyboardType="email-address"
+          value={correo}
+          onChangeText={setCorreo}
+        />
+      </View>
+
+      {/* INPUT CONTRASEÑA */}
+      <View style={styles.inputBox}>
+        <View style={styles.rowHeader}>
+          <Text style={styles.label}>Nueva contraseña</Text>
+          <Text style={styles.editIcon}>✏️</Text>
+        </View>
+
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <TextInput
+            style={[styles.input, { flex: 1 }]}
+            placeholder="******"
+            placeholderTextColor="#777"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
+          />
+
+          {/* Ver/Ocultar contraseña */}
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons
+              name={showPassword ? "eye-off" : "eye"}
+              size={22}
+              color="#FFD600"
+              style={{ marginLeft: 8 }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
 
       {/* Botones */}
       <View style={styles.btnRow}>
-        <TouchableOpacity style={styles.btnSave} activeOpacity={0.8} onPress={handleSave}>
+        <TouchableOpacity style={styles.btnSave} onPress={handleSave}>
           <Text style={styles.btnSaveText}>Guardar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.btnCancel}
-          activeOpacity={0.8}
           onPress={() => navigation.goBack()}
         >
           <Text style={styles.btnCancelText}>Cancelar</Text>
@@ -79,6 +125,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
   },
+
+  // --- FOTO ---
   avatarContainer: {
     alignItems: "center",
     marginBottom: 30,
@@ -100,24 +148,33 @@ const styles = StyleSheet.create({
     color: "#FFD600",
     fontSize: 18,
   },
-  row: {
+
+  // --- INPUTS ---
+  inputBox: {
     backgroundColor: "#1a1a1a",
     padding: 16,
     borderRadius: 12,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
     marginBottom: 15,
   },
-  rowText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
+  rowHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 8,
   },
-  rowIcon: {
+  label: {
+    color: "#ccc",
+    fontSize: 14,
+  },
+  editIcon: {
     color: "#FFD600",
     fontSize: 16,
   },
+  input: {
+    color: "#fff",
+    fontSize: 16,
+  },
+
+  // --- BOTONES ---
   btnRow: {
     flexDirection: "row",
     justifyContent: "space-between",

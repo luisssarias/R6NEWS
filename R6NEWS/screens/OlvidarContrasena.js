@@ -1,38 +1,130 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function OlvidarContrasena () {
-        return (
-            <View style={styles.container}>
+export default function OlvidarContrasena() {
 
-                <View style={styles.box}>
+    const [modalVisible, setModalVisible] = useState(false);
+    const [showNewPass, setShowNewPass] = useState(false);
+    const [passVisible, setPassVisible] = useState(false);
+    const [pass2Visible, setPass2Visible] = useState(false);
 
-                    <Text style={styles.title}>R6News</Text>
+    return (
+        <View style={styles.container}>
 
-                    <Text style={styles.subtitle}>
-                        Recuperar{"\n"}contraseña
-                    </Text>
+            <View style={styles.box}>
 
+<<<<<<< HEAD
                     <Text style={styles.description}>
                         Introduce tu correo electrónico.{"\n"}
                         Te enviaremos un código para
                         restablecer tu contraseña.
                     </Text>
+=======
+                <Text style={styles.title}>R6News</Text>
+>>>>>>> main
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Correo electrónico"
-                        placeholderTextColor="#7F7F7F"
-                    />
+                {!showNewPass && (
+                    <>
+                        <Text style={styles.subtitle}>
+                            Recuperar{"\n"}contraseña
+                        </Text>
 
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Enviar código</Text>
-                    </TouchableOpacity>
+                        <Text style={styles.description}>
+                            Introduce tu correo electrónico.{"\n"}
+                            Te enviaremos un código para{"\n"}
+                            restablecer tu contraseña.
+                        </Text>
 
-                </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Correo electrónico"
+                            placeholderTextColor="#7F7F7F"
+                        />
+
+                        <TouchableOpacity 
+                            style={styles.button}
+                            onPress={() => setModalVisible(true)}
+                        >
+                            <Text style={styles.buttonText}>Enviar código</Text>
+                        </TouchableOpacity>
+                    </>
+                )}
+
+                {showNewPass && (
+                    <>
+                        <Text style={styles.subtitle}>Nueva contraseña</Text>
+
+                        {/* CONTRASEÑA 1 */}
+                        <View style={styles.passContainer}>
+                            <TextInput
+                                style={styles.passInput}
+                                placeholder="Nueva contraseña"
+                                placeholderTextColor="#7F7F7F"
+                                secureTextEntry={!passVisible}
+                            />
+                            <TouchableOpacity onPress={() => setPassVisible(!passVisible)}>
+                                <Ionicons 
+                                    name={passVisible ? "eye-off" : "eye"} 
+                                    size={24} 
+                                    color="#fff" 
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* CONTRASEÑA 2 */}
+                        <View style={styles.passContainer}>
+                            <TextInput
+                                style={styles.passInput}
+                                placeholder="Confirmar contraseña"
+                                placeholderTextColor="#7F7F7F"
+                                secureTextEntry={!pass2Visible}
+                            />
+                            <TouchableOpacity onPress={() => setPass2Visible(!pass2Visible)}>
+                                <Ionicons 
+                                    name={pass2Visible ? "eye-off" : "eye"} 
+                                    size={24} 
+                                    color="#fff" 
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        <TouchableOpacity style={styles.button}
+                         onPress={() => navigation.navigate("IniciarSesion")}>
+                            <Text style={styles.buttonText}>Guardar</Text>
+                        </TouchableOpacity>
+                    </>
+                )}
 
             </View>
-        );
+
+            {/* ===== MODAL ===== */}
+            <Modal
+                visible={modalVisible}
+                transparent={true}
+                animationType="fade"
+            >
+                <View style={styles.modalBackground}>
+                    <View style={styles.modalBox}>
+                        <Text style={styles.modalText}>
+                            ✔ Código enviado a tu correo
+                        </Text>
+
+                        <TouchableOpacity 
+                            style={styles.modalButton}
+                            onPress={() => {
+                                setModalVisible(false);
+                                setShowNewPass(true);
+                            }}
+                        >
+                            <Text style={styles.modalButtonText}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -74,7 +166,7 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        width: '80%',           
+        width: '80%',
         backgroundColor: '#1A1A1A',
         paddingVertical: 10,
         paddingHorizontal: 15,
@@ -85,11 +177,28 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
 
+    passContainer: {
+        width: '80%',
+        backgroundColor: '#1A1A1A',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        borderRadius: 12,
+        marginBottom: 25,
+    },
+
+    passInput: {
+        flex: 1,
+        color: '#fff',
+        paddingVertical: 10,
+        fontSize: 16,
+    },
+
     button: {
-        width: '65%',              // 🔥 Más corto, igual al diseño
+        width: '65%',
         backgroundColor: '#F9D708',
-        paddingVertical: 14,       // Altura exacta
-        borderRadius: 16,          // Muy redondeado como el mockup
+        paddingVertical: 14,
+        borderRadius: 16,
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 20,
@@ -98,7 +207,43 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#000000',
+        color: '#000',
         textAlign: 'center',
     },
+
+    // MODAL
+    modalBackground: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.6)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    modalBox: {
+        width: '75%',
+        backgroundColor: '#1A1A1A',
+        padding: 25,
+        borderRadius: 18,
+        alignItems: 'center',
+    },
+
+    modalText: {
+        color: '#fff',
+        fontSize: 18,
+        textAlign: 'center',
+        marginBottom: 20,
+    },
+
+    modalButton: {
+        backgroundColor: '#F9D708',
+        paddingVertical: 10,
+        paddingHorizontal: 30,
+        borderRadius: 12,
+    },
+
+    modalButtonText: {
+        color: '#000',
+        fontSize: 18,
+        fontWeight: 'bold',
+    }
 });
