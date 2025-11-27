@@ -1,87 +1,77 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function WelcomeScreen({ navigation }) {
-  return (
-    <View style={styles.container}>
-        <Text style={styles.title}>R6News</Text>
-        <Text style={styles.subtitle}>
-          Conecta con el mundo{"\n"}
-          competitivo de{"\n"}
-          Rainbow Six
-        </Text>
+export default function Bienvenida({ navigation }) {
+    return (
+        <View style={styles.container}>
 
-        <TouchableOpacity
-          style={styles.loginBtn}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={styles.loginText}>Iniciar sesión</Text>
-        </TouchableOpacity>
+            <Text style={styles.title}>R6News</Text>
 
-        <TouchableOpacity
-          style={styles.registerBtn}
-          onPress={() => navigation.navigate("Register")}
-        >
-          <Text style={styles.registerText}>Registrarse</Text>
-        </TouchableOpacity>
-      </View>
-  );
+            <Text style={styles.subtitle}>
+                Conecta con el mundo competitivo de{"\n"}Rainbow Six
+            </Text>
+
+            <TouchableOpacity 
+                style={styles.loginBtn}
+                onPress={() => navigation.navigate("IniciarSesion")}
+            >
+                <Text style={styles.loginText}>Iniciar sesión</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+                style={styles.registerBtn}
+                onPress={() => navigation.navigate("RegistroSesion")}
+            >
+                <Text style={styles.registerText}>Registrarse</Text>
+            </TouchableOpacity>
+
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0A0C0E",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  card: {
-    width: "85%",
-    backgroundColor: "#0D0D0D",
-    paddingVertical: 50,
-    borderRadius: 12,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#1a1a1a",
-  },
-  title: {
-    color: "#FFD426",
-    fontSize: 38,
-    fontWeight: "900",
-    marginBottom: 20,
-  },
-  subtitle: {
-    color: "#d3d3d3",
-    fontSize: 17,
-    textAlign: "center",
-    marginBottom: 40,
-    lineHeight: 24,
-  },
-  loginBtn: {
-    backgroundColor: "#FFD426",
-    paddingVertical: 12,
-    paddingHorizontal: 40,
-    borderRadius: 12,
-    marginBottom: 18,
-    width: 180,
-    alignItems: "center",
-  },
-  loginText: {
-    color: "#000",
-    fontSize: 16,
-    fontWeight: "700",
-  },
-  registerBtn: {
-    backgroundColor: "#2c2c2c",
-    paddingVertical: 12,
-    paddingHorizontal: 40,
-    borderRadius: 12,
-    width: 180,
-    alignItems: "center",
-  },
-  registerText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "700",
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#0D0D0D',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 25
+    },
+    title: {
+        color: '#F9D708',
+        fontSize: 42,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    subtitle: {
+        color: '#FFFFFF',
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: 45,
+    },
+    loginBtn: {
+        backgroundColor: '#F9D708',
+        width: '70%',
+        paddingVertical: 14,
+        borderRadius: 10,
+        marginBottom: 15,
+    },
+    loginText: {
+        color: '#000',
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    registerBtn: {
+        backgroundColor: '#1E1E1E',
+        width: '70%',
+        paddingVertical: 14,
+        borderRadius: 10,
+    },
+    registerText: {
+        color: '#FFFFFF',
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
 });

@@ -47,19 +47,21 @@ const Noticias = () => {
     }
 
     return (
-      <View style={styles.newsCard}>
-        <Image source={{ uri: item.imagen }} style={styles.newsImage} />
-        <View style={styles.newsContent}>
-          <Text style={styles.newsDate}>{item.fecha}</Text>
-          <Text style={styles.newsTitle}>{item.titulo}</Text>
-          <Text style={styles.newsDescription}>{item.descripcion}</Text>
-          <TouchableOpacity>
-            <Text style={styles.newsMore}>Ver más</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
+  <View style={styles.newsCard}>
+    <Image source={{ uri: item.imagen }} style={styles.newsImage} />
+
+    <View style={styles.newsContent}>
+      <Text style={styles.newsDate}>{item.fecha}</Text>
+      <Text style={styles.newsTitle}>{item.titulo}</Text>
+      <Text style={styles.newsDescription}>{item.descripcion}</Text>
+
+      <TouchableOpacity onPress={() => navigation.navigate("VerMas", { item })}>
+        <Text style={styles.newsMore}>Ver más</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+);
+};
 
   return (
     <View style={styles.container}>
@@ -87,10 +89,9 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   screenTitle: {
-    color: '#ffffff',
-    fontSize: 16,
-    marginBottom: 12,
-    opacity: 0.8,
+    color: "#FFD426",
+    fontSize: 40,
+    fontWeight: "900",
   },
   headerCard: {
     backgroundColor: '#1f1f1f',

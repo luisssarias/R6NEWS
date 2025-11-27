@@ -13,7 +13,7 @@ export default function HomeScreen() {
       {/* Slider principal */}
       <View style={styles.mainCard}>
         <Image
-          source={{ uri: "https://i.imgur.com/QbmB9TO.jpeg" }}
+          source={{ uri: "https://ik.imagekit.io/0eqydxstn/hero-banner-r6_bc5nPJN4y.jpg?updatedAt=1630441074026" }}
           style={styles.mainImage}
         />
       </View>
@@ -23,7 +23,7 @@ export default function HomeScreen() {
 
       <TouchableOpacity style={styles.latestCard}>
         <Image
-          source={{ uri: "https://i.imgur.com/iEdfc0g.jpeg" }}
+          source={{ uri: "https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/kbyJly2JDRxFrjFSrptiy/ebbdae24cdfed025b0872742bb6c2a96/r6-operators-list-jackal.png" }}
           style={styles.latestImg}
         />
         <View style={{ flex: 1 }}>
