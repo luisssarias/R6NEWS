@@ -1,8 +1,12 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function IniciarSesionScreen() {
+  const navigation = useNavigation();
   return (
+
     <View style={styles.container}>
       <Text style={styles.logo}>R6News</Text>
 
@@ -21,7 +25,8 @@ export default function IniciarSesionScreen() {
         secureTextEntry
       />
 
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity 
+        style={styles.btn} onPress={() => navigation.replace("TabsMenu")}>
         <Text style={styles.btnText}>Iniciar sesión</Text>
       </TouchableOpacity>
 

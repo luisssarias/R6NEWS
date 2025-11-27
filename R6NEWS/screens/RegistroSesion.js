@@ -1,7 +1,23 @@
 import React from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 export default function RegistroSesionScreen() {
+  const navigation = useNavigation();
+
+  const handleRegister = () => {
+    Alert.alert(
+      "Registro exitoso",
+      "Tu cuenta ha sido creada correctamente.",
+      [
+        {
+          text: "Aceptar",
+          onPress: () => navigation.replace("TabsMenu"),
+        }
+      ]
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.logo}>R6News</Text>
@@ -27,13 +43,15 @@ export default function RegistroSesionScreen() {
         secureTextEntry
       />
 
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={handleRegister}>
         <Text style={styles.btnText}>Registrarse</Text>
       </TouchableOpacity>
 
-      <Text style={styles.bottomText}>
-        ¿Ya tienes una cuenta? <Text style={styles.link}>Iniciar sesión</Text>
-      </Text>
+      <TouchableOpacity onPress={() => navigation.replace("IniciarSesion")}>
+        <Text style={styles.bottomText}>
+          ¿Ya tienes una cuenta? <Text style={styles.link}>Iniciar sesión</Text>
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
