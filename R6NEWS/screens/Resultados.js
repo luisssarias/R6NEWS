@@ -90,7 +90,6 @@ const Resultados = () => {
 
       <View style={styles.headerCard}>
         <Text style={styles.headerTitle}>Resultados de partidas</Text>
-        <Text style={styles.headerBell}>🔔 Notificaciones</Text>
       </View>
 
       <FlatList

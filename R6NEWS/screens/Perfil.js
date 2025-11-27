@@ -37,7 +37,7 @@ export default function Perfil() {
                 
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Notificaciones")} >
                 <Text style={styles.buttonText}>Notificaciones</Text>
             </TouchableOpacity>
 
