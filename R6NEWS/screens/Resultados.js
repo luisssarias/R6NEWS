@@ -1,6 +1,6 @@
 // screens/Resultados.js
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, StatusBar, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, StatusBar, Image, TouchableOpacity, Linking } from 'react-native';
 
 const partidas = [
   {
@@ -49,37 +49,42 @@ const Resultados = () => {
     }
 
     return (
-      <View style={styles.matchCard}>
-        <View style={styles.rowTeams}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => Linking.openURL("https://twitch.com")}
+      >
+        <View style={styles.matchCard}>
+          <View style={styles.rowTeams}>
 
-          {/* EQUIPO IZQUIERDO */}
-          <View style={styles.teamSide}>
-            <Image source={{ uri: item.imgIzq }} style={styles.teamLogo} />
-            <Text style={styles.teamName}>{item.izquierda}</Text>
+            {/* EQUIPO IZQUIERDO */}
+            <View style={styles.teamSide}>
+              <Image source={{ uri: item.imgIzq }} style={styles.teamLogo} />
+              <Text style={styles.teamName}>{item.izquierda}</Text>
+            </View>
+
+            {/* MARCADOR */}
+            <View style={styles.scoreBox}>
+              <Text style={styles.scoreLeft}>{item.marcadorIzq}</Text>
+              <Text style={styles.scoreDash}> - </Text>
+              <Text style={styles.scoreRight}>{item.marcadorDer}</Text>
+            </View>
+
+            {/* EQUIPO DERECHO */}
+            <View style={styles.teamSide}>
+              <Image source={{ uri: item.imgDer }} style={styles.teamLogo} />
+              <Text style={styles.teamName}>{item.derecha}</Text>
+            </View>
           </View>
 
-          {/* MARCADOR */}
-          <View style={styles.scoreBox}>
-            <Text style={styles.scoreLeft}>{item.marcadorIzq}</Text>
-            <Text style={styles.scoreDash}> - </Text>
-            <Text style={styles.scoreRight}>{item.marcadorDer}</Text>
-          </View>
+          {/* GANADOR */}
+          <Text style={styles.winnerText}>
+            {ganador === "En curso" ? "En curso" : `Ganador: ${ganador}`}
+          </Text>
 
-          {/* EQUIPO DERECHO */}
-          <View style={styles.teamSide}>
-            <Image source={{ uri: item.imgDer }} style={styles.teamLogo} />
-            <Text style={styles.teamName}>{item.derecha}</Text>
-          </View>
+          {/* FECHA */}
+          <Text style={styles.date}>{item.fecha}</Text>
         </View>
-
-        {/* 🟩 GANADOR */}
-        <Text style={styles.winnerText}>
-          {ganador === "En curso" ? "En curso" : `Ganador: ${ganador}`}
-        </Text>
-
-        {/* FECHA */}
-        <Text style={styles.date}>{item.fecha}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
