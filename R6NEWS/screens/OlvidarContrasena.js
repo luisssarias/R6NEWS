@@ -15,7 +15,7 @@ export default function OlvidarContrasena () {
 
                     <Text style={styles.description}>
                         Introduce tu correo electrónico.{"\n"}
-                        Te enviaremos un código para{"\n"}
+                        Te enviaremos un código para
                         restablecer tu contraseña.
                     </Text>
 
