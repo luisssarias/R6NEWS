@@ -114,10 +114,9 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   screenTitle: {
-    color: '#ffffff',
-    fontSize: 16,
-    marginBottom: 12,
-    opacity: 0.8,
+    color: "#FFD426",
+    fontSize: 40,
+    fontWeight: "900",
   },
   headerCard: {
     backgroundColor: '#111111',

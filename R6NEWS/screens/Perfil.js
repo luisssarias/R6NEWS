@@ -1,32 +1,49 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-export default class Perfil extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                
-                <Image
-                    source={{ uri: 'https://i.imgur.com/XSYQw2Z.png' }}
-                    style={styles.avatar}
-                />
+export default function Perfil() {
 
-                <Text style={styles.username}>Username</Text>
+    const navigation = useNavigation();
 
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Editar perfil</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Notificaciones</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Cerrar sesión</Text>
-                </TouchableOpacity>
-            </View>
+    const handleLogout = () => {
+        Alert.alert(
+            "Cerrar sesión",
+            "¿Estás seguro de que quieres cerrar sesión?",
+            [
+                { text: "Cancelar", style: "cancel" },
+                {
+                    text: "Cerrar sesión",
+                    style: "destructive",
+                    onPress: () => navigation.replace("Bienvenida")
+                }
+            ]
         );
-    }
+    };
+
+    return (
+        <View style={styles.container}>
+            
+            <Image
+                source={{ uri: 'https://i.imgur.com/XSYQw2Z.png' }}
+                style={styles.avatar}
+            />
+
+            <Text style={styles.username}>Username</Text>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Editar perfil</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Notificaciones</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={handleLogout}>
+                <Text style={styles.buttonText}>Cerrar sesión</Text>
+            </TouchableOpacity>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -42,10 +59,10 @@ const styles = StyleSheet.create({
         borderRadius: 60,
         marginBottom: 10,
     },
-    username: {
-        color: '#FFEB3B',
-        fontSize: 20,
-        marginBottom: 40,
+    username: { 
+        color: "#FFD426",
+        fontSize: 40,
+        fontWeight: "900",
     },
     button: {
         width: '70%',
