@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Switch, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const notificacionesData = [
   {
@@ -24,10 +25,17 @@ const notificacionesData = [
 ];
 
 export default function NotificacionesScreen() {
+  const navigation = useNavigation();
   const [activadas, setActivadas] = useState(true);
 
   return (
     <View style={styles.container}>
+
+      {/* BOTÓN DE REGRESO */}
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Ionicons name="arrow-back" size={28} color="#FFD700" />
+      </TouchableOpacity>
+
       {/* ENCABEZADO */}
       <View style={styles.header}>
         <Ionicons name="notifications-outline" size={32} color="#FFD700" />
@@ -69,10 +77,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 60,
   },
+
+  /* --- REGRESAR --- */
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 15,
+    padding: 8,
+    zIndex: 10,
+  },
+
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 25,
+    justifyContent: 'center',
   },
   title: {
     color: '#FFD700',
@@ -115,4 +134,3 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
-
