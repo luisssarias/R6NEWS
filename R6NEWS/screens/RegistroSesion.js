@@ -6,8 +6,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   Modal,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+import AuthController from "../controllers/AuthController";
 
 export default function RegistroSesionScreen() {
   const navigation = useNavigation();
@@ -19,110 +22,79 @@ export default function RegistroSesionScreen() {
   const [errors, setErrors] = useState({});
   const [modalVisible, setModalVisible] = useState(false);
 
-  // VALIDAR CORREO
-  const validateEmail = (correo) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(correo);
-  };
-
-  const handleRegister = () => {
-    let tempErrors = {};
-
-    if (!name.trim()) tempErrors.name = "El nombre es obligatorio";
-
-    if (!email.trim()) {
-      tempErrors.email = "El correo es obligatorio";
-    } else if (!validateEmail(email)) {
-      tempErrors.email = "Ingresa un correo válido";
-    }
-
-    if (!pass.trim()) {
-      tempErrors.pass = "La contraseña es obligatoria";
-    } else if (pass.length < 6) {
-      tempErrors.pass = "Mínimo 6 caracteres";
-    }
-
-    setErrors(tempErrors);
-
-    if (Object.keys(tempErrors).length === 0) {
-      // TODO OK → Mostrar modal
+  const handleRegister = async () => {
+    try {
+      setErrors({});
+      await AuthController.register({
+        nombre: name,
+        correo: email,
+        password: pass,
+      });
       setModalVisible(true);
+    } catch (err) {
+      if (err.type === "validation") {
+        setErrors(err.errors || {});
+      } else {
+        Alert.alert("Error", err.message || "No se pudo registrar");
+      }
     }
   };
 
-  const handleModalOk = () => {
+  const onSuccess = () => {
     setModalVisible(false);
     navigation.replace("TabsMenu");
   };
 
-  // BOTÓN ACTIVO
-  const isDisabled = !name.trim() || !email.trim() || !pass.trim();
+  const disabled = !name.trim() || !email.trim() || !pass.trim();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>R6News</Text>
-      <Text style={styles.title}>Registrarse</Text>
+      <Text style={styles.title}>Crear cuenta</Text>
 
-      {/* Nombre */}
       <TextInput
         style={styles.input}
-        placeholder="Nombre"
-        placeholderTextColor="#888"
+        placeholder="Nombre completo"
+        placeholderTextColor="#aaa"
         value={name}
         onChangeText={setName}
       />
-      {errors.name && <Text style={styles.error}>{errors.name}</Text>}
+      {errors.nombre && <Text style={styles.error}>{errors.nombre}</Text>}
 
-      {/* Correo */}
       <TextInput
         style={styles.input}
         placeholder="Correo electrónico"
-        placeholderTextColor="#888"
+        placeholderTextColor="#aaa"
         value={email}
         onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
-      {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+      {errors.correo && <Text style={styles.error}>{errors.correo}</Text>}
 
-      {/* Contraseña */}
       <TextInput
         style={styles.input}
         placeholder="Contraseña"
-        placeholderTextColor="#888"
+        placeholderTextColor="#aaa"
         secureTextEntry
         value={pass}
         onChangeText={setPass}
       />
-      {errors.pass && <Text style={styles.error}>{errors.pass}</Text>}
+      {errors.password && <Text style={styles.error}>{errors.password}</Text>}
 
-      {/* BOTÓN REGISTRARSE */}
       <TouchableOpacity
-        style={[styles.btn, isDisabled && { opacity: 0.5 }]}
-        disabled={isDisabled}
+        style={[styles.btn, disabled && { opacity: 0.5 }]}
+        disabled={disabled}
         onPress={handleRegister}
       >
         <Text style={styles.btnText}>Registrarse</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.replace("IniciarSesion")}>
-        <Text style={styles.bottomText}>
-          ¿Ya tienes una cuenta? <Text style={styles.link}>Iniciar sesión</Text>
-        </Text>
-      </TouchableOpacity>
-
-      {/* MODAL */}
-      <Modal visible={modalVisible} transparent animationType="fade">
-        <View style={styles.modalBackground}>
+      <Modal transparent visible={modalVisible} animationType="fade">
+        <View style={styles.modalBg}>
           <View style={styles.modalBox}>
-            <Text style={styles.modalText}>✔ Registro exitoso</Text>
-            <Text style={styles.modalSub}>
-              Tu cuenta ha sido creada correctamente.
-            </Text>
-
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={handleModalOk}
-            >
-              <Text style={styles.modalButtonText}>Aceptar</Text>
+            <Text style={styles.modalText}>Registro exitoso</Text>
+            <TouchableOpacity onPress={onSuccess} style={styles.modalBtn}>
+              <Text style={styles.modalBtnText}>Continuar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -134,109 +106,66 @@ export default function RegistroSesionScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0d0d0d",
+    backgroundColor: "#000",
+    padding: 20,
     justifyContent: "center",
-    paddingHorizontal: 30,
   },
-
-  logo: {
-    color: "#FFD600",
-    fontSize: 42,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-
   title: {
     color: "#fff",
     fontSize: 28,
     fontWeight: "bold",
-    textAlign: "center",
     marginBottom: 30,
+    textAlign: "center",
   },
-
   input: {
-    backgroundColor: "#1a1a1a",
-    borderRadius: 12,
-    padding: 14,
+    backgroundColor: "#111",
     color: "#fff",
-    marginBottom: 10,
-    fontSize: 16,
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 5,
   },
-
   error: {
-    color: "#FF5A5A",
-    marginBottom: 8,
-    marginLeft: 5,
-    fontSize: 14,
+    color: "red",
+    marginBottom: 10,
   },
-
   btn: {
-    backgroundColor: "#FFD600",
-    padding: 14,
-    borderRadius: 12,
-    marginTop: 10,
-  },
-
-  btnText: {
-    textAlign: "center",
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000",
-  },
-
-  bottomText: {
-    color: "#aaa",
+    backgroundColor: "#F9D708",
+    padding: 15,
+    borderRadius: 10,
     marginTop: 20,
-    textAlign: "center",
-    fontSize: 14,
   },
-
-  link: {
-    color: "#fff",
+  btnText: {
+    color: "#000",
+    fontSize: 16,
     fontWeight: "bold",
+    textAlign: "center",
   },
-
-  modalBackground: {
+  modalBg: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.6)",
+    backgroundColor: "#000000aa",
     justifyContent: "center",
     alignItems: "center",
   },
-
   modalBox: {
-    width: "75%",
-    backgroundColor: "#1A1A1A",
-    padding: 25,
-    borderRadius: 18,
-    alignItems: "center",
+    backgroundColor: "#111",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
   },
-
   modalText: {
-    color: "#FFD600",
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-
-  modalSub: {
     color: "#fff",
-    textAlign: "center",
-    marginBottom: 25,
-    fontSize: 15,
-  },
-
-  modalButton: {
-    backgroundColor: "#FFD600",
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    borderRadius: 12,
-  },
-
-  modalButtonText: {
-    color: "#000",
     fontSize: 18,
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  modalBtn: {
+    backgroundColor: "#F9D708",
+    padding: 10,
+    borderRadius: 8,
+  },
+  modalBtnText: {
+    color: "#000",
     fontWeight: "bold",
+    textAlign: "center",
   },
 });

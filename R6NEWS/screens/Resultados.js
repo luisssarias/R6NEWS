@@ -1,5 +1,4 @@
-// screens/Resultados.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,120 +8,56 @@ import {
   Image,
   TouchableOpacity,
   Linking,
+  Alert,
 } from "react-native";
+import ResultadosController from "../controllers/ResultadosController";
 
-const partidas = [
-  {
-    id: "1",
-    izquierda: "BDS",
-    derecha: "Rogue",
-    marcadorIzq: 7,
-    marcadorDer: 4,
-    fecha: "11 Marzo 2024",
-    imgIzq:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBc4bwkWUivshcqIFtxwjLlaCuFXI0gdnDPg&s",
-    imgDer:
-      "https://ih1.redbubble.net/image.753351556.0305/st,small,507x507-pad,600x600,f8f8f8.jpg",
-  },
-  {
-    id: "2",
-    izquierda: "FURIA",
-    derecha: "MNM",
-    marcadorIzq: 2,
-    marcadorDer: 7,
-    fecha: "11 Marzo 2024",
-    imgIzq:
-      "https://ih1.redbubble.net/image.1179359660.4569/st,small,507x507-pad,600x600,f8f8f8.jpg",
-    imgDer:
-      "https://esports-news.co.uk/wp-content/uploads/2016/08/MnM-logo.jpg",
-  },
-  {
-    id: "3",
-    izquierda: "G2",
-    derecha: "WZM",
-    marcadorIzq: 3,
-    marcadorDer: 7,
-    fecha: "11 Marzo 2024",
-    imgIzq: "https://logowik.com/content/uploads/images/g2-esport6091.jpg",
-    imgDer:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE13WkVBdmT4dICVcW7i1pf1sCWSf2iIdE2g&s",
-  },
-];
+export default function Resultados() {
+  const [partidas, setPartidas] = useState([]);
 
-const Resultados = () => {
-  const renderItem = ({ item }) => {
-    // 👑 DETERMINAR GANADOR
-    let ganador = null;
+  useEffect(() => {
+    cargarResultados();
+  }, []);
 
-    if (item.marcadorIzq === 7) {
-      ganador = item.izquierda;
-    } else if (item.marcadorDer === 7) {
-      ganador = item.derecha;
-    } else {
-      ganador = "En curso";
+  const cargarResultados = async () => {
+    try {
+      const data = await ResultadosController.listarResultados();
+      setPartidas(data);
+    } catch (err) {
+      Alert.alert("Error", "No se pudieron cargar los resultados");
     }
-
-    return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => Linking.openURL("https://twitch.com")}
-      >
-        <View style={styles.matchCard}>
-          <View style={styles.rowTeams}>
-            {/* EQUIPO IZQUIERDO */}
-            <View style={styles.teamSide}>
-              <Image source={{ uri: item.imgIzq }} style={styles.teamLogo} />
-              <Text style={styles.teamName}>{item.izquierda}</Text>
-            </View>
-
-            {/* MARCADOR */}
-            <View style={styles.scoreBox}>
-              <Text style={styles.scoreLeft}>{item.marcadorIzq}</Text>
-              <Text style={styles.scoreDash}> - </Text>
-              <Text style={styles.scoreRight}>{item.marcadorDer}</Text>
-            </View>
-
-            {/* EQUIPO DERECHO */}
-            <View style={styles.teamSide}>
-              <Image source={{ uri: item.imgDer }} style={styles.teamLogo} />
-              <Text style={styles.teamName}>{item.derecha}</Text>
-            </View>
-          </View>
-
-          {/* GANADOR */}
-          <Text style={styles.winnerText}>
-            {ganador === "En curso" ? "En curso" : `Ganador: ${ganador}`}
-          </Text>
-
-          {/* FECHA */}
-          <Text style={styles.date}>{item.fecha}</Text>
-        </View>
-      </TouchableOpacity>
-    );
   };
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => Linking.openURL("https://twitch.com")}
+    >
+      <View style={styles.matchCard}>
+        <Text style={styles.winnerText}>
+          {item.ganador === "En curso"
+            ? "En curso"
+            : `Ganador: ${item.ganador}`}
+        </Text>
+        <Text style={styles.date}>{item.fecha}</Text>
+      </View>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <Text style={styles.screenTitle}>Resultados</Text>
-
-      <View style={styles.headerCard}>
-        <Text style={styles.headerTitle}>Resultados de partidas</Text>
-      </View>
-
+      {/* resto de tu JSX original */}
       <FlatList
         data={partidas}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => String(item.id)}
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: 80 }}
         showsVerticalScrollIndicator={false}
       />
     </View>
   );
-};
-
-export default Resultados;
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
