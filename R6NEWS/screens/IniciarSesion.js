@@ -10,35 +10,31 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
+import AuthController from "../controllers/AuthController";
+
 export default function IniciarSesionScreen() {
   const navigation = useNavigation();
 
-  // Estados
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // Validar correo
-  const validarCorreo = (email) => {
-    const regex = /\S+@\S+\.\S+/;
-    return regex.test(email);
-  };
-
-  const handleLogin = () => {
-    // Validación de campos vacíos
-    if (!correo || !password) {
-      Alert.alert("Campos incompletos", "Por favor rellena todos los campos.");
-      return;
+  const handleLogin = async () => {
+    try {
+      const user = await AuthController.login({ correo, password });
+      // Aquí podrías guardar al usuario en contexto/global state si quisieras.
+      navigation.navigate("TabsMenu");
+    } catch (err) {
+      if (err.type === "validation") {
+        const msg =
+          err.errors.correo ||
+          err.errors.password ||
+          "Revisa los datos ingresados.";
+        Alert.alert("Datos inválidos", msg);
+      } else {
+        Alert.alert("Error", err.message || "No se pudo iniciar sesión");
+      }
     }
-
-    // Validación de correo
-    if (!validarCorreo(correo)) {
-      Alert.alert("Correo inválido", "Ingresa un correo electrónico válido.");
-      return;
-    }
-
-    // Todo correcto
-    navigation.navigate("TabsMenu");
   };
 
   return (
@@ -47,7 +43,6 @@ export default function IniciarSesionScreen() {
 
       <Text style={styles.title}>Bienvenido{"\n"}de nuevo</Text>
 
-      {/* INPUT CORREO */}
       <TextInput
         style={styles.input}
         placeholder="Correo electrónico"
@@ -58,7 +53,6 @@ export default function IniciarSesionScreen() {
         autoCapitalize="none"
       />
 
-      {/* INPUT CONTRASEÑA CON OJO */}
       <View style={styles.passwordBox}>
         <TextInput
           style={[styles.input, { flex: 1, marginBottom: 0 }]}
@@ -79,19 +73,16 @@ export default function IniciarSesionScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* BOTÓN INICIAR */}
       <TouchableOpacity style={styles.btn} onPress={handleLogin}>
         <Text style={styles.btnText}>Iniciar sesión</Text>
       </TouchableOpacity>
 
-      {/* OLVIDASTE TU CONTRASEÑA */}
       <TouchableOpacity onPress={() => navigation.replace("OlvidarContrasena")}>
         <Text style={styles.bottomText}>¿Olvidaste tu contraseña?</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

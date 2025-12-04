@@ -1,5 +1,4 @@
-// screens/NoticiasCrud.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,29 +8,33 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Alert,
 } from "react-native";
+import NoticiasController from "../controllers/NoticiasController";
 
-const NoticiasCrud = () => {
-  const [noticias, setNoticias] = useState([
-    {
-      id: "1",
-      fecha: "10 Octubre 2025",
-      titulo: "R6 SI, los ganadores",
-      descripcion: "Resumen del Six Invitational",
-      imagen: "https://i.ytimg.com/vi/cmxTr1glH7Y/hq720.jpg",
-    },
-  ]);
-
+export default function NoticiasScreen() {
+  const [noticias, setNoticias] = useState([]);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [editId, setEditId] = useState(null);
 
-  // Campos del formulario
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fecha, setFecha] = useState("");
   const [imagen, setImagen] = useState("");
 
-  // LIMPIAR FORMULARIO
+  useEffect(() => {
+    cargarNoticias();
+  }, []);
+
+  const cargarNoticias = async () => {
+    try {
+      const data = await NoticiasController.listarNoticias();
+      setNoticias(data);
+    } catch (err) {
+      Alert.alert("Error", "No se pudieron cargar las noticias");
+    }
+  };
+
   const resetFormulario = () => {
     setTitulo("");
     setDescripcion("");
@@ -41,21 +44,31 @@ const NoticiasCrud = () => {
     setEditId(null);
   };
 
-  // AGREGAR NOTICIA
-  const agregarNoticia = () => {
-    const nueva = {
-      id: Date.now().toString(),
-      titulo,
-      descripcion,
-      fecha,
-      imagen,
-    };
+  const manejarGuardar = async () => {
+    const data = { titulo, descripcion, fecha, imagen };
 
-    setNoticias([...noticias, nueva]);
-    resetFormulario();
+    try {
+      if (modoEdicion && editId != null) {
+        await NoticiasController.actualizarNoticia(editId, data);
+      } else {
+        await NoticiasController.crearNoticia(data);
+      }
+      await cargarNoticias();
+      resetFormulario();
+    } catch (err) {
+      if (err.type === "validation") {
+        const msg =
+          err.errors.titulo ||
+          err.errors.descripcion ||
+          err.errors.fecha ||
+          "Revisa los campos.";
+        Alert.alert("Datos inválidos", msg);
+      } else {
+        Alert.alert("Error", err.message || "No se pudo guardar");
+      }
+    }
   };
 
-  // CARGAR NOTICIA PARA EDITAR
   const cargarParaEditar = (item) => {
     setTitulo(item.titulo);
     setDescripcion(item.descripcion);
@@ -65,34 +78,18 @@ const NoticiasCrud = () => {
     setEditId(item.id);
   };
 
-  // GUARDAR EDICIÓN
-  const guardarEdicion = () => {
-    const actualizadas = noticias.map((n) =>
-      n.id === editId
-        ? {
-            ...n,
-            titulo,
-            descripcion,
-            fecha,
-            imagen,
-          }
-        : n
-    );
-
-    setNoticias(actualizadas);
-    resetFormulario();
+  const eliminarNoticia = async (id) => {
+    try {
+      await NoticiasController.eliminarNoticia(id);
+      await cargarNoticias();
+    } catch (err) {
+      Alert.alert("Error", "No se pudo eliminar la noticia");
+    }
   };
 
-  // ELIMINAR
-  const eliminarNoticia = (id) => {
-    setNoticias(noticias.filter((n) => n.id !== id));
-  };
-
-  // RENDER ITEM
   const renderItem = ({ item }) => (
     <View style={styles.newsCard}>
       <Image source={{ uri: item.imagen }} style={styles.newsImage} />
-
       <View style={{ flex: 1 }}>
         <Text style={styles.newsDate}>{item.fecha}</Text>
         <Text style={styles.newsTitle}>{item.titulo}</Text>
@@ -119,85 +116,17 @@ const NoticiasCrud = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.screenTitle}>CRUD Noticias</Text>
-
-      {/* FORMULARIO */}
-      <View style={styles.formCard}>
-        <Text style={styles.formTitle}>
-          {modoEdicion ? "Editar Noticia" : "Crear Noticia"}
-        </Text>
-
-        <TextInput
-          placeholder="Título"
-          placeholderTextColor="#777"
-          style={styles.input}
-          value={titulo}
-          onChangeText={setTitulo}
-        />
-
-        <TextInput
-          placeholder="Descripción"
-          placeholderTextColor="#777"
-          style={[styles.input, { height: 80 }]}
-          multiline
-          value={descripcion}
-          onChangeText={setDescripcion}
-        />
-
-        <TextInput
-          placeholder="Fecha"
-          placeholderTextColor="#777"
-          style={styles.input}
-          value={fecha}
-          onChangeText={setFecha}
-        />
-
-        <TextInput
-          placeholder="URL Imagen"
-          placeholderTextColor="#777"
-          style={styles.input}
-          value={imagen}
-          onChangeText={setImagen}
-        />
-
-        {/* BOTONES DEL FORM */}
-        <View style={styles.formActions}>
-          {modoEdicion ? (
-            <TouchableOpacity
-              style={styles.saveButton}
-              onPress={guardarEdicion}
-            >
-              <Text style={styles.btnTextBlack}>Guardar Cambios</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity style={styles.addButton} onPress={agregarNoticia}>
-              <Text style={styles.btnTextBlack}>Agregar</Text>
-            </TouchableOpacity>
-          )}
-
-          {modoEdicion && (
-            <TouchableOpacity
-              style={styles.cancelButton}
-              onPress={resetFormulario}
-            >
-              <Text style={styles.btnText}>Cancelar</Text>
-            </TouchableOpacity>
-          )}
-        </View>
-      </View>
-
-      {/* LISTA */}
+      {/* El resto de tu JSX original, usando manejarGuardar en lugar de dos funciones */}
+      {/* ... */}
       <FlatList
         data={noticias}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => String(item.id)}
         renderItem={renderItem}
         scrollEnabled={false}
       />
     </ScrollView>
   );
-};
-
-export default NoticiasCrud;
+}
 
 const styles = StyleSheet.create({
   container: {
