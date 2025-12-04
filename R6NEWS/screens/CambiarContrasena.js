@@ -35,7 +35,6 @@ export default function CambiarContrasenaScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-
         {/* TÍTULO R6 */}
         <Text style={styles.r6}>R6News</Text>
 
@@ -82,7 +81,6 @@ export default function CambiarContrasenaScreen() {
             <Text style={styles.btnCancelarText}>Cancelar</Text>
           </TouchableOpacity>
         </View>
-
       </View>
     </View>
   );

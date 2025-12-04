@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function OlvidarContrasena({ navigation }) {
-
   const [modalVisible, setModalVisible] = useState(false);
   const [showNewPass, setShowNewPass] = useState(false);
   const [passVisible, setPassVisible] = useState(false);
@@ -11,14 +17,10 @@ export default function OlvidarContrasena({ navigation }) {
 
   return (
     <View style={styles.container}>
-
       <View style={styles.box}>
-
         {!showNewPass && (
           <>
-            <Text style={styles.subtitle}>
-              Recuperar{"\n"}contraseña
-            </Text>
+            <Text style={styles.subtitle}>Recuperar{"\n"}contraseña</Text>
 
             <Text style={styles.description}>
               Introduce tu correo electrónico.{"\n"}
@@ -87,20 +89,13 @@ export default function OlvidarContrasena({ navigation }) {
             </TouchableOpacity>
           </>
         )}
-
       </View>
 
       {/* MODAL */}
-      <Modal
-        visible={modalVisible}
-        transparent={true}
-        animationType="fade"
-      >
+      <Modal visible={modalVisible} transparent={true} animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalBox}>
-            <Text style={styles.modalText}>
-              ✔ Código enviado a tu correo
-            </Text>
+            <Text style={styles.modalText}>✔ Código enviado a tu correo</Text>
 
             <TouchableOpacity
               style={styles.modalButton}
@@ -114,7 +109,6 @@ export default function OlvidarContrasena({ navigation }) {
           </View>
         </View>
       </Modal>
-
     </View>
   );
 }
@@ -122,58 +116,58 @@ export default function OlvidarContrasena({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0D0D0D',
-    alignItems: 'center',
+    backgroundColor: "#0D0D0D",
+    alignItems: "center",
   },
 
   box: {
-    width: '88%',
+    width: "88%",
     marginTop: 100,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   title: {
-    color: '#F9D708',
+    color: "#F9D708",
     fontSize: 38,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   subtitle: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 30,
     lineHeight: 32,
   },
 
   description: {
-    color: '#CFCFCF',
+    color: "#CFCFCF",
     fontSize: 15,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 45,
     lineHeight: 22,
   },
 
   input: {
-    width: '80%',
-    backgroundColor: '#1A1A1A',
+    width: "80%",
+    backgroundColor: "#1A1A1A",
     paddingVertical: 10,
     paddingHorizontal: 15,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     borderRadius: 12,
     marginBottom: 40,
     fontSize: 16,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 
   passContainer: {
-    width: '80%',
-    backgroundColor: '#1A1A1A',
-    flexDirection: 'row',
-    alignItems: 'center',
+    width: "80%",
+    backgroundColor: "#1A1A1A",
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 15,
     borderRadius: 12,
     marginBottom: 25,
@@ -181,60 +175,60 @@ const styles = StyleSheet.create({
 
   passInput: {
     flex: 1,
-    color: '#fff',
+    color: "#fff",
     paddingVertical: 10,
     fontSize: 16,
   },
 
   button: {
-    width: '65%',
-    backgroundColor: '#F9D708',
+    width: "65%",
+    backgroundColor: "#F9D708",
     paddingVertical: 14,
     borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
   },
 
   buttonText: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "#000",
+    textAlign: "center",
   },
 
   modalBackground: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0,0,0,0.6)",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   modalBox: {
-    width: '75%',
-    backgroundColor: '#1A1A1A',
+    width: "75%",
+    backgroundColor: "#1A1A1A",
     padding: 25,
     borderRadius: 18,
-    alignItems: 'center',
+    alignItems: "center",
   },
 
   modalText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
   },
 
   modalButton: {
-    backgroundColor: '#F9D708',
+    backgroundColor: "#F9D708",
     paddingVertical: 10,
     paddingHorizontal: 30,
     borderRadius: 12,
   },
 
   modalButtonText: {
-    color: '#000',
+    color: "#000",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });

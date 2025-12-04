@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function VerMasScreen() {
@@ -15,16 +22,16 @@ export default function VerMasScreen() {
 
       <View style={styles.card}>
         <Image
-          source={require("../assets/noticia.jpg")} 
+          source={require("../assets/noticia.jpg")}
           style={styles.cardImg}
         />
 
         <Text style={styles.cardTitle}>Road to S.I. se pone en marcha</Text>
 
         <Text style={styles.cardText}>
-          El evento competitivo del año se encuentra a la vuelta de la esquina. 
-          Estamos muy emocionados de anunciar que este año se marcha el evento competitivo 
-          del año. A partir de hoy...
+          El evento competitivo del año se encuentra a la vuelta de la esquina.
+          Estamos muy emocionados de anunciar que este año se marcha el evento
+          competitivo del año. A partir de hoy...
         </Text>
 
         <Text style={styles.cardDate}>16 Octubre 2025</Text>

@@ -7,23 +7,19 @@ export default function EstadisticasP() {
 
   return (
     <View style={styles.container}>
-
       <View style={styles.card}>
-
         <View style={styles.headerRow}>
           <Text style={styles.title}>R6News</Text>
 
-          <TouchableOpacity onPress={() => navigation.navigate("Notificaciones")}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Notificaciones")}
+          >
             <Text style={styles.notif}>🔔</Text>
-
           </TouchableOpacity>
         </View>
         <View style={styles.scoreBox}>
           <View style={styles.team}>
-            <Image
-              source={require("../assets/faze.png")}
-              style={styles.logo}
-            />
+            <Image source={require("../assets/faze.png")} style={styles.logo} />
             <Text style={styles.teamName}>Faze</Text>
           </View>
 
@@ -77,9 +73,7 @@ export default function EstadisticasP() {
             <Text style={styles.item}>0% Trade %</Text>
           </View>
         </View>
-
       </View>
-
     </View>
   );
 }
