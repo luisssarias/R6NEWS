@@ -163,7 +163,10 @@ const NoticiasCrud = () => {
         {/* BOTONES DEL FORM */}
         <View style={styles.formActions}>
           {modoEdicion ? (
-            <TouchableOpacity style={styles.saveButton} onPress={guardarEdicion}>
+            <TouchableOpacity
+              style={styles.saveButton}
+              onPress={guardarEdicion}
+            >
               <Text style={styles.btnTextBlack}>Guardar Cambios</Text>
             </TouchableOpacity>
           ) : (
@@ -173,7 +176,10 @@ const NoticiasCrud = () => {
           )}
 
           {modoEdicion && (
-            <TouchableOpacity style={styles.cancelButton} onPress={resetFormulario}>
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={resetFormulario}
+            >
               <Text style={styles.btnText}>Cancelar</Text>
             </TouchableOpacity>
           )}

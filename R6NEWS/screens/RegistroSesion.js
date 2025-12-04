@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { 
-  View, Text, TextInput, TouchableOpacity, 
-  StyleSheet, Modal 
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
 } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 export default function RegistroSesionScreen() {
-
   const navigation = useNavigation();
 
   const [name, setName] = useState("");
@@ -53,12 +56,10 @@ export default function RegistroSesionScreen() {
   };
 
   // BOTÓN ACTIVO
-  const isDisabled =
-    !name.trim() || !email.trim() || !pass.trim();
+  const isDisabled = !name.trim() || !email.trim() || !pass.trim();
 
   return (
     <View style={styles.container}>
-      
       <Text style={styles.logo}>R6News</Text>
       <Text style={styles.title}>Registrarse</Text>
 
@@ -117,19 +118,20 @@ export default function RegistroSesionScreen() {
               Tu cuenta ha sido creada correctamente.
             </Text>
 
-            <TouchableOpacity style={styles.modalButton} onPress={handleModalOk}>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={handleModalOk}
+            >
               <Text style={styles.modalButtonText}>Aceptar</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: "#0d0d0d",
@@ -237,5 +239,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-
 });

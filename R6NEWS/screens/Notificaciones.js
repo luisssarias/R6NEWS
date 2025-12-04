@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, Switch, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Switch,
+  TouchableOpacity,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const notificacionesData = [
   {
-    id: '1',
-    titulo: 'Nueva actualización disponible',
-    descripcion: 'Ubisoft lanzó un nuevo parche con balance de operadores.',
-    fecha: 'Hace 2h',
+    id: "1",
+    titulo: "Nueva actualización disponible",
+    descripcion: "Ubisoft lanzó un nuevo parche con balance de operadores.",
+    fecha: "Hace 2h",
   },
   {
-    id: '2',
-    titulo: 'Partido en vivo',
-    descripcion: 'El encuentro SSG vs TS ha comenzado.',
-    fecha: 'Hace 30 min',
+    id: "2",
+    titulo: "Partido en vivo",
+    descripcion: "El encuentro SSG vs TS ha comenzado.",
+    fecha: "Hace 30 min",
   },
   {
-    id: '3',
-    titulo: 'Operador rework',
-    descripcion: 'Jackal recibe ajustes importantes en la próxima temporada.',
-    fecha: 'Ayer',
+    id: "3",
+    titulo: "Operador rework",
+    descripcion: "Jackal recibe ajustes importantes en la próxima temporada.",
+    fecha: "Ayer",
   },
 ];
 
@@ -30,9 +37,11 @@ export default function NotificacionesScreen() {
 
   return (
     <View style={styles.container}>
-
       {/* BOTÓN DE REGRESO */}
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}
+      >
         <Ionicons name="arrow-back" size={28} color="#FFD700" />
       </TouchableOpacity>
 
@@ -48,7 +57,7 @@ export default function NotificacionesScreen() {
         <Switch
           value={activadas}
           onValueChange={setActivadas}
-          trackColor={{ false: '#555', true: '#FFD700' }}
+          trackColor={{ false: "#555", true: "#FFD700" }}
           thumbColor="#111"
         />
       </View>
@@ -73,14 +82,14 @@ export default function NotificacionesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0D0D0D',
+    backgroundColor: "#0D0D0D",
     paddingHorizontal: 20,
     paddingTop: 60,
   },
 
   /* --- REGRESAR --- */
   backButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     left: 15,
     padding: 8,
@@ -88,49 +97,49 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 25,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   title: {
-    color: '#FFD700',
+    color: "#FFD700",
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: 10,
   },
   switchRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 20,
     paddingVertical: 10,
   },
   switchLabel: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
   },
   card: {
-    backgroundColor: '#1A1A1A',
+    backgroundColor: "#1A1A1A",
     padding: 15,
     borderRadius: 12,
     marginBottom: 15,
     borderLeftWidth: 4,
-    borderLeftColor: '#FFD700',
+    borderLeftColor: "#FFD700",
   },
   cardTitle: {
-    color: '#FFD700',
+    color: "#FFD700",
     fontSize: 17,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   cardDesc: {
-    color: '#ccc',
+    color: "#ccc",
     fontSize: 14,
     marginTop: 4,
   },
   cardFecha: {
-    color: '#888',
+    color: "#888",
     fontSize: 12,
     marginTop: 8,
-    textAlign: 'right',
+    textAlign: "right",
   },
 });

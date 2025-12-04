@@ -1,37 +1,51 @@
 // screens/Resultados.js
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, StatusBar, Image, TouchableOpacity, Linking } from 'react-native';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  StatusBar,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 
 const partidas = [
   {
-    id: '1',
-    izquierda: 'BDS',
-    derecha: 'Rogue',
+    id: "1",
+    izquierda: "BDS",
+    derecha: "Rogue",
     marcadorIzq: 7,
     marcadorDer: 4,
-    fecha: '11 Marzo 2024',
-    imgIzq: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBc4bwkWUivshcqIFtxwjLlaCuFXI0gdnDPg&s',
-    imgDer: 'https://ih1.redbubble.net/image.753351556.0305/st,small,507x507-pad,600x600,f8f8f8.jpg',
+    fecha: "11 Marzo 2024",
+    imgIzq:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBc4bwkWUivshcqIFtxwjLlaCuFXI0gdnDPg&s",
+    imgDer:
+      "https://ih1.redbubble.net/image.753351556.0305/st,small,507x507-pad,600x600,f8f8f8.jpg",
   },
   {
-    id: '2',
-    izquierda: 'FURIA',
-    derecha: 'MNM',
+    id: "2",
+    izquierda: "FURIA",
+    derecha: "MNM",
     marcadorIzq: 2,
     marcadorDer: 7,
-    fecha: '11 Marzo 2024',
-    imgIzq: 'https://ih1.redbubble.net/image.1179359660.4569/st,small,507x507-pad,600x600,f8f8f8.jpg',
-    imgDer: 'https://esports-news.co.uk/wp-content/uploads/2016/08/MnM-logo.jpg',
+    fecha: "11 Marzo 2024",
+    imgIzq:
+      "https://ih1.redbubble.net/image.1179359660.4569/st,small,507x507-pad,600x600,f8f8f8.jpg",
+    imgDer:
+      "https://esports-news.co.uk/wp-content/uploads/2016/08/MnM-logo.jpg",
   },
   {
-    id: '3',
-    izquierda: 'G2',
-    derecha: 'WZM',
+    id: "3",
+    izquierda: "G2",
+    derecha: "WZM",
     marcadorIzq: 3,
     marcadorDer: 7,
-    fecha: '11 Marzo 2024',
-    imgIzq: 'https://logowik.com/content/uploads/images/g2-esport6091.jpg',
-    imgDer: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE13WkVBdmT4dICVcW7i1pf1sCWSf2iIdE2g&s',
+    fecha: "11 Marzo 2024",
+    imgIzq: "https://logowik.com/content/uploads/images/g2-esport6091.jpg",
+    imgDer:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE13WkVBdmT4dICVcW7i1pf1sCWSf2iIdE2g&s",
   },
 ];
 
@@ -55,7 +69,6 @@ const Resultados = () => {
       >
         <View style={styles.matchCard}>
           <View style={styles.rowTeams}>
-
             {/* EQUIPO IZQUIERDO */}
             <View style={styles.teamSide}>
               <Image source={{ uri: item.imgIzq }} style={styles.teamLogo} />
@@ -113,7 +126,7 @@ export default Resultados;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1A1A1A',
+    backgroundColor: "#1A1A1A",
     paddingHorizontal: 16,
     paddingTop: 40,
   },
@@ -123,37 +136,37 @@ const styles = StyleSheet.create({
     fontWeight: "900",
   },
   headerCard: {
-    backgroundColor: '#111111',
+    backgroundColor: "#111111",
     borderRadius: 14,
     padding: 18,
     marginBottom: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   headerTitle: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   headerBell: {
-    color: '#FFD800',
+    color: "#FFD800",
     fontSize: 13,
   },
   matchCard: {
-    backgroundColor: '#111111',
+    backgroundColor: "#111111",
     borderRadius: 14,
     paddingVertical: 16,
     paddingHorizontal: 16,
     marginBottom: 14,
   },
   rowTeams: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   teamSide: {
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: "column",
+    alignItems: "center",
     width: 70,
   },
   teamLogo: {
@@ -163,43 +176,43 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   teamName: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 12,
-    textAlign: 'center',
+    textAlign: "center",
   },
   scoreBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1F1F1F',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#1F1F1F",
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 10,
   },
   scoreLeft: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   scoreDash: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 22,
   },
   scoreRight: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   winnerText: {
     marginTop: 10,
-    color: '#FFD800',
-    textAlign: 'center',
-    fontWeight: '600',
+    color: "#FFD800",
+    textAlign: "center",
+    fontWeight: "600",
     fontSize: 13,
   },
   date: {
-    color: '#aaaaaa',
+    color: "#aaaaaa",
     fontSize: 11,
     marginTop: 6,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

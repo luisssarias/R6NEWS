@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Alert, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  TextInput,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -26,10 +34,7 @@ export default function EditarPerfilScreen() {
 
       {/* Foto */}
       <View style={styles.avatarContainer}>
-        <Image
-          source={require("../assets/user.jpg")}
-          style={styles.avatar}
-        />
+        <Image source={require("../assets/user.jpg")} style={styles.avatar} />
         <TouchableOpacity style={styles.cameraBtn}>
           <Text style={styles.cameraIcon}>📷</Text>
         </TouchableOpacity>

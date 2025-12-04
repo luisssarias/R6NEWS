@@ -1,10 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import { useNavigation } from '@react-navigation/native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function IniciarSesionScreen() {
-
   const navigation = useNavigation();
 
   // Estados
@@ -19,7 +25,6 @@ export default function IniciarSesionScreen() {
   };
 
   const handleLogin = () => {
-
     // Validación de campos vacíos
     if (!correo || !password) {
       Alert.alert("Campos incompletos", "Por favor rellena todos los campos.");
@@ -88,7 +93,6 @@ export default function IniciarSesionScreen() {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: "#0d0d0d",
@@ -152,5 +156,4 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
   },
-
 });

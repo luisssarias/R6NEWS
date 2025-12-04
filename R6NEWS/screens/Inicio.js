@@ -1,5 +1,12 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 
 export default function HomeScreen() {
   return (
@@ -13,7 +20,9 @@ export default function HomeScreen() {
       {/* Slider principal */}
       <View style={styles.mainCard}>
         <Image
-          source={{ uri: "https://ik.imagekit.io/0eqydxstn/hero-banner-r6_bc5nPJN4y.jpg?updatedAt=1630441074026" }}
+          source={{
+            uri: "https://ik.imagekit.io/0eqydxstn/hero-banner-r6_bc5nPJN4y.jpg?updatedAt=1630441074026",
+          }}
           style={styles.mainImage}
         />
       </View>
@@ -23,7 +32,9 @@ export default function HomeScreen() {
 
       <TouchableOpacity style={styles.latestCard}>
         <Image
-          source={{ uri: "https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/kbyJly2JDRxFrjFSrptiy/ebbdae24cdfed025b0872742bb6c2a96/r6-operators-list-jackal.png" }}
+          source={{
+            uri: "https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/kbyJly2JDRxFrjFSrptiy/ebbdae24cdfed025b0872742bb6c2a96/r6-operators-list-jackal.png",
+          }}
           style={styles.latestImg}
         />
         <View style={{ flex: 1 }}>
@@ -36,17 +47,17 @@ export default function HomeScreen() {
       <Text style={styles.sectionTitle}>UPCOMING MATCHES</Text>
 
       <View style={styles.matchCard}>
-        <Text style={styles.matchText}>PWN  vs  FNC</Text>
+        <Text style={styles.matchText}>PWN vs FNC</Text>
         <Text style={styles.timeText}>12:00 PM</Text>
       </View>
 
       <View style={styles.matchCard}>
-        <Text style={styles.matchText}>CAG  vs  DIG</Text>
+        <Text style={styles.matchText}>CAG vs DIG</Text>
         <Text style={styles.timeText}>1:30 PM</Text>
       </View>
 
       <View style={styles.matchCard}>
-        <Text style={styles.matchText}>SSG  vs  TS</Text>
+        <Text style={styles.matchText}>SSG vs TS</Text>
         <Text style={styles.timeText}>3:00 PM</Text>
       </View>
 

@@ -1,20 +1,17 @@
-import { getDB } from './database';
-import { Platform } from 'react-native';
+import { getDB } from "./database";
+import { Platform } from "react-native";
 
-// -----------------------------
-// CRUD GENERICO PARA CUALQUIER TABLA
-// -----------------------------
 export function createCRUD(tableName, localKey) {
   return {
     // Obtener todo
     async getAll() {
-      if (Platform.OS === 'web') {
+      if (Platform.OS === "web") {
         const data = localStorage.getItem(localKey);
         return data ? JSON.parse(data) : [];
       } else {
         const db = await getDB();
         return new Promise((resolve, reject) => {
-          db.transaction(tx => {
+          db.transaction((tx) => {
             tx.executeSql(
               `SELECT * FROM ${tableName} ORDER BY id DESC;`,
               [],
@@ -28,7 +25,7 @@ export function createCRUD(tableName, localKey) {
 
     // Agregar (dinámico)
     async add(dataObject) {
-      if (Platform.OS === 'web') {
+      if (Platform.OS === "web") {
         const items = await this.getAll();
         const newItem = { id: Date.now(), ...dataObject };
         items.unshift(newItem);
@@ -36,17 +33,16 @@ export function createCRUD(tableName, localKey) {
         return newItem;
       } else {
         const db = await getDB();
-        const columns = Object.keys(dataObject).join(', ');
+        const columns = Object.keys(dataObject).join(", ");
         const values = Object.values(dataObject);
-        const placeholders = values.map(() => '?').join(', ');
+        const placeholders = values.map(() => "?").join(", ");
 
         return new Promise((resolve, reject) => {
-          db.transaction(tx => {
+          db.transaction((tx) => {
             tx.executeSql(
               `INSERT INTO ${tableName} (${columns}) VALUES (${placeholders});`,
               values,
-              (_, result) =>
-                resolve({ id: result.insertId, ...dataObject }),
+              (_, result) => resolve({ id: result.insertId, ...dataObject }),
               (_, error) => reject(error)
             );
           });
@@ -56,9 +52,9 @@ export function createCRUD(tableName, localKey) {
 
     // Actualizar
     async update(id, dataObject) {
-      if (Platform.OS === 'web') {
+      if (Platform.OS === "web") {
         const items = await this.getAll();
-        const updated = items.map(item =>
+        const updated = items.map((item) =>
           item.id === id ? { ...item, ...dataObject } : item
         );
         localStorage.setItem(localKey, JSON.stringify(updated));
@@ -66,12 +62,12 @@ export function createCRUD(tableName, localKey) {
       } else {
         const db = await getDB();
         const columns = Object.keys(dataObject)
-          .map(key => `${key} = ?`)
-          .join(', ');
+          .map((key) => `${key} = ?`)
+          .join(", ");
         const values = [...Object.values(dataObject), id];
 
         return new Promise((resolve, reject) => {
-          db.transaction(tx => {
+          db.transaction((tx) => {
             tx.executeSql(
               `UPDATE ${tableName} SET ${columns} WHERE id = ?;`,
               values,
@@ -85,15 +81,15 @@ export function createCRUD(tableName, localKey) {
 
     // Eliminar
     async dlt(id) {
-      if (Platform.OS === 'web') {
+      if (Platform.OS === "web") {
         const items = await this.getAll();
-        const filtered = items.filter(item => item.id !== id);
+        const filtered = items.filter((item) => item.id !== id);
         localStorage.setItem(localKey, JSON.stringify(filtered));
         return { rowsAffected: 1 };
       } else {
         const db = await getDB();
         return new Promise((resolve, reject) => {
-          db.transaction(tx => {
+          db.transaction((tx) => {
             tx.executeSql(
               `DELETE FROM ${tableName} WHERE id = ?;`,
               [id],
@@ -103,14 +99,11 @@ export function createCRUD(tableName, localKey) {
           });
         });
       }
-    }
+    },
   };
 }
 
-// -----------------------------
-// INSTANCIAS CRUD DE CADA TABLA
-// -----------------------------
-export const UsersCRUD = createCRUD('users', 'users_local');
-export const NoticiasCRUD = createCRUD('noticias', 'noticias_local');
-export const ResultadosCRUD = createCRUD('resultados', 'resultados_local');
-export const NotificacionesCRUD = createCRUD('notificaciones', 'notif_local');
+export const UsersCRUD = createCRUD("users", "users_local");
+export const NoticiasCRUD = createCRUD("noticias", "noticias_local");
+export const ResultadosCRUD = createCRUD("resultados", "resultados_local");
+export const NotificacionesCRUD = createCRUD("notificaciones", "notif_local");
