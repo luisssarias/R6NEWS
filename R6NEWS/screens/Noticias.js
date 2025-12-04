@@ -89,7 +89,10 @@ export default function NoticiasScreen() {
 
   const renderItem = ({ item }) => (
     <View style={styles.newsCard}>
-      <Image source={{ uri: item.imagen }} style={styles.newsImage} />
+      {item.imagen ? (
+        <Image source={{ uri: item.imagen }} style={styles.newsImage} />
+      ) : null}
+
       <View style={{ flex: 1 }}>
         <Text style={styles.newsDate}>{item.fecha}</Text>
         <Text style={styles.newsTitle}>{item.titulo}</Text>
@@ -114,10 +117,77 @@ export default function NoticiasScreen() {
     </View>
   );
 
+  const botonPrincipalStyle = modoEdicion
+    ? styles.saveButton
+    : styles.addButton;
+  const botonPrincipalTextStyle = modoEdicion
+    ? styles.btnText
+    : styles.btnTextBlack;
+  const textoBoton = modoEdicion ? "Guardar cambios" : "Agregar noticia";
+
   return (
     <ScrollView style={styles.container}>
-      {/* El resto de tu JSX original, usando manejarGuardar en lugar de dos funciones */}
-      {/* ... */}
+      <Text style={styles.screenTitle}>Noticias</Text>
+
+      {/* FORMULARIO */}
+      <View style={styles.formCard}>
+        <Text style={styles.formTitle}>
+          {modoEdicion ? "Editar noticia" : "Agregar noticia"}
+        </Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Título"
+          placeholderTextColor="#999"
+          value={titulo}
+          onChangeText={setTitulo}
+        />
+
+        <TextInput
+          style={[styles.input, { height: 80 }]}
+          placeholder="Descripción"
+          placeholderTextColor="#999"
+          value={descripcion}
+          onChangeText={setDescripcion}
+          multiline
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Fecha (ej. 10 Feb 2025)"
+          placeholderTextColor="#999"
+          value={fecha}
+          onChangeText={setFecha}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="URL de imagen (opcional)"
+          placeholderTextColor="#999"
+          value={imagen}
+          onChangeText={setImagen}
+        />
+
+        <View style={styles.formActions}>
+          <TouchableOpacity
+            style={botonPrincipalStyle}
+            onPress={manejarGuardar}
+          >
+            <Text style={botonPrincipalTextStyle}>{textoBoton}</Text>
+          </TouchableOpacity>
+
+          {modoEdicion && (
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={resetFormulario}
+            >
+              <Text style={styles.btnText}>Cancelar</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
+
+      {/* LISTA DE NOTICIAS */}
       <FlatList
         data={noticias}
         keyExtractor={(item) => String(item.id)}

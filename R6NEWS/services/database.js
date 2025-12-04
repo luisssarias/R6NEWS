@@ -1,14 +1,15 @@
 import * as SQLite from "expo-sqlite";
 
-// Abre la base de datos en modo async
+// 1. Abrir la base de datos
 export const getDB = async () => {
   return await SQLite.openDatabaseAsync("R6NewsApp.db");
 };
 
+// 2. Inicializar DB + crear tablas + seed
 export const initDB = async () => {
   const db = await getDB();
 
-  // 1. Crear tablas
+  // Crear tablas
   await db.execAsync(`
     PRAGMA foreign_keys = ON;
 
@@ -46,28 +47,47 @@ export const initDB = async () => {
     );
   `);
 
-  // 2. Validar si noticias ya tienen datos
-  const noticias = await db.getAllAsync("SELECT * FROM noticias LIMIT 1;");
-  const resultados = await db.getAllAsync("SELECT * FROM resultados LIMIT 1;");
+  // Verificar datos existentes
+  const noticias = await db.getAllAsync("SELECT id FROM noticias LIMIT 1;");
+  const resultados = await db.getAllAsync("SELECT id FROM resultados LIMIT 1;");
 
-  // 3. Insertar datos iniciales si están vacías
+  // SEED: NOTICIAS
   if (noticias.length === 0) {
-    await db.execAsync(`
-      INSERT INTO noticias (titulo, descripcion, fecha, imagen, categoria)
-      VALUES
-      ('Nuevo parche Y9S1', 'Cambios importantes en operadores y mapas.', '2025-02-01', 'https://i.imgur.com/abcd.jpg', 'actualización'),
-      ('Road to SI', 'Regresa el torneo icónico con nuevos formatos.', '2025-02-05', 'https://i.imgur.com/efgh.jpg', 'evento');
-    `);
+    await db.runAsync(
+      "INSERT INTO noticias (titulo, descripcion, fecha, imagen, categoria) VALUES (?, ?, ?, ?, ?)",
+      [
+        "Nuevo parche Y9S1",
+        "Cambios en operadores y mapas.",
+        "2025-02-01",
+        "https://i.imgur.com/abcd.jpg",
+        "actualizacion",
+      ]
+    );
+
+    await db.runAsync(
+      "INSERT INTO noticias (titulo, descripcion, fecha, imagen, categoria) VALUES (?, ?, ?, ?, ?)",
+      [
+        "Road to SI",
+        "Regresa el torneo anual con nuevo formato.",
+        "2025-02-05",
+        "https://i.imgur.com/efgh.jpg",
+        "evento",
+      ]
+    );
   }
 
+  // SEED: RESULTADOS
   if (resultados.length === 0) {
-    await db.execAsync(`
-      INSERT INTO resultados (equipoA, equipoB, score, torneo, fecha)
-      VALUES
-      ('G2', 'Liquid', '7-5', 'Six Invitational', '2025-01-10'),
-      ('NAVI', 'FaZe', '8-6', 'Pro League', '2025-01-15');
-    `);
+    await db.runAsync(
+      "INSERT INTO resultados (equipoA, equipoB, score, torneo, fecha) VALUES (?, ?, ?, ?, ?)",
+      ["G2", "Liquid", "7-5", "Six Invitational", "2025-01-10"]
+    );
+
+    await db.runAsync(
+      "INSERT INTO resultados (equipoA, equipoB, score, torneo, fecha) VALUES (?, ?, ?, ?, ?)",
+      ["NAVI", "FaZe", "8-6", "Pro League", "2025-01-15"]
+    );
   }
 
-  console.log("✓ Tablas creadas y datos iniciales cargados");
+  console.log("✓ Tablas creadas y seed cargado.");
 };
